@@ -11,7 +11,7 @@
             padding: 0;
             background-color: #332534; /* Default Dark Theme */
             color: #fff; /* Default text color */
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */
         }
 
         header {
@@ -40,19 +40,20 @@
         .typewriter {
             overflow: hidden;
             white-space: nowrap;
-            margin: 0 auto;
-            letter-spacing: 0.1em;
-            animation: typing 2s steps(22, end), blink-caret 0.5s step-end infinite alternate;
+            display: inline-block;
+        }
+
+        .typewriter-text {
+            animation: typing 2s steps(25) forwards;
         }
 
         @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent; }
-            50% { border-color: #fff; }
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -64,9 +65,8 @@
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
-    <!-- Content of the homepage goes here -->
     <div class="typewriter">
-        <h1>whats up lmao</h1>
+        <h1 class="typewriter-text">whats up lmao</h1>
     </div>
 
     <script>
