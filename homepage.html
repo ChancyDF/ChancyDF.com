@@ -51,30 +51,48 @@
         .typewriter-text {
             overflow: hidden;
             display: inline-block;
-            animation: typing 2s steps(15) forwards;
-            animation-delay: 1s; /* Delay before animation starts */
+            animation: typing 4s steps(25) forwards, blink-caret 0.5s step-end infinite;
         }
 
         @keyframes typing {
-            from {
+            0% {
                 width: 0;
             }
+            25% {
+                width: 3ch;
+            }
+            50% {
+                width: 7ch;
+            }
+            75% {
+                width: 11ch;
+            }
+            100% {
+                width: 15ch;
+            }
+        }
+
+        @keyframes blink-caret {
+            from,
             to {
-                width: 100%;
+                border-right-color: transparent;
+            }
+            50% {
+                border-right-color: #fff;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="homepage">
+        <a href="index.html">
             <img id="logo" src="logo.png" alt="ChancyDF Logo">
         </a>
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
     <div class="typewriter">
-        <h1 class="typewriter-text">whats up lmao</h1>
+        <h1 class="typewriter-text"></h1>
     </div>
 
     <script>
@@ -97,6 +115,12 @@
 
         // Set initial theme toggle image
         document.getElementById('themeToggle').style.backgroundImage = 'url("togglelight.png")';
+
+        // Set text content and initiate the typewriter effect after a delay
+        setTimeout(() => {
+            const textElement = document.querySelector('.typewriter-text');
+            textElement.textContent = 'whats up lmao';
+        }, 1000); // Delay in milliseconds
     </script>
 </body>
 </html>
