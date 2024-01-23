@@ -9,7 +9,6 @@
             font-family: 'Arial', sans-serif; /* Default font */
             margin: 0;
             padding: 0;
-            background-color: #332534; /* Default Dark Theme */
             color: #fff; /* Default text color */
         }
 
@@ -35,19 +34,46 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
+        #typewriterHeader {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <a href="index.html"> <!-- Added link to the homepage -->
+        <a href="index.html">
             <img id="logo" src="logo.png" alt="ChancyDF Logo">
         </a>
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
     <!-- Content of the homepage goes here -->
+    <div id="typewriterHeader">Whats up lmao</div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            animateTypewriter('typewriterHeader', 'Whats up lmao', 50);
+        });
+
+        function animateTypewriter(elementId, text, speed) {
+            const element = document.getElementById(elementId);
+            let index = 0;
+
+            function typeWriter() {
+                if (index < text.length) {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, Math.floor(Math.random() * (300 - 50 + 1)) + 50);
+                }
+            }
+
+            typeWriter();
+        }
+
         function toggleTheme() {
             const body = document.body;
             const themeToggle = document.getElementById('themeToggle');
@@ -60,7 +86,7 @@
             } else {
                 body.style.backgroundColor = '#F5E5F6'; // Light Theme
                 document.querySelector('header').style.backgroundColor = '#FAB8FF';
-                body.style.color = '#333';
+                body.style.color = '#120F12';
                 themeToggle.style.backgroundImage = 'url("toggledark.png")';
             }
         }
