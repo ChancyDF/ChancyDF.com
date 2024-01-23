@@ -9,7 +9,9 @@
             font-family: 'Arial', sans-serif; /* Default font */
             margin: 0;
             padding: 0;
+            background-color: #332534; /* Default Dark Theme */
             color: #fff; /* Default text color */
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
@@ -35,11 +37,22 @@
             background-repeat: no-repeat;
         }
 
-        #typewriterHeader {
+        .typewriter {
             overflow: hidden;
             white-space: nowrap;
-            margin: 0;
-            font-size: 24px;
+            margin: 0 auto;
+            letter-spacing: 0.1em;
+            animation: typing 2s steps(22, end), blink-caret 0.5s step-end infinite alternate;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #fff; }
         }
     </style>
 </head>
@@ -52,28 +65,11 @@
     </header>
 
     <!-- Content of the homepage goes here -->
-    <div id="typewriterHeader">Whats up lmao</div>
+    <div class="typewriter">
+        <h1>whats up lmao</h1>
+    </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            animateTypewriter('typewriterHeader', 'Whats up lmao', 50);
-        });
-
-        function animateTypewriter(elementId, text, speed) {
-            const element = document.getElementById(elementId);
-            let index = 0;
-
-            function typeWriter() {
-                if (index < text.length) {
-                    element.innerHTML += text.charAt(index);
-                    index++;
-                    setTimeout(typeWriter, Math.floor(Math.random() * (300 - 50 + 1)) + 50);
-                }
-            }
-
-            typeWriter();
-        }
-
         function toggleTheme() {
             const body = document.body;
             const themeToggle = document.getElementById('themeToggle');
