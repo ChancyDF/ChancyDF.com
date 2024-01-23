@@ -35,16 +35,24 @@
             height: 30px;
             background-size: cover;
             background-repeat: no-repeat;
+            transition: opacity 0.5s; /* Smooth fade effect */
+        }
+
+        #themeToggle:hover {
+            opacity: 0.7;
         }
 
         .typewriter {
             overflow: hidden;
             white-space: nowrap;
-            display: inline-block;
+            text-align: center; /* Centered on the page */
         }
 
         .typewriter-text {
-            animation: typing 2s steps(25) forwards;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 2s steps(15) forwards;
+            animation-delay: 1s; /* Delay before animation starts */
         }
 
         @keyframes typing {
