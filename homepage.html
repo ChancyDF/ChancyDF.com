@@ -23,6 +23,7 @@
         #logo {
             max-width: 10%;
             height: auto;
+            cursor: pointer;
         }
 
         #themeToggle {
@@ -38,7 +39,9 @@
 </head>
 <body>
     <header>
-        <img id="logo" src="logo.png" alt="ChancyDF Logo">
+        <a href="index.html"> <!-- Added link to the homepage -->
+            <img id="logo" src="logo.png" alt="ChancyDF Logo">
+        </a>
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
