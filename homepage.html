@@ -3,24 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chancydf.com</title>
+    <title>ChancyDF.com</title>
     <style>
         body {
-            background-color: #ffe6e6; 
-            text-align: center;
-            padding: 50px;
+            font-family: 'Arial', sans-serif; /* Default font */
             margin: 0;
+            padding: 0;
+            background-color: #F5E5F6; /* Default Light Theme */
+            color: #333; /* Default text color */
         }
 
-        h1 {
-            color: #ff0066; 
+        header {
+            background-color: #332534; /* Default Dark Theme for the bar at the top */
+            color: #fff; /* Text color on the bar */
+            padding: 10px;
+            text-align: center;
+        }
+
+        #logo {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #themeToggle {
+            float: right;
+            cursor: pointer;
+            margin-right: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>
-        <img src="logo.png" alt="Website Logo">
-    </h1>
-    <p>Work in Progress!</p>
+    <header>
+        <img id="logo" src="logo.png" alt="ChancyDF Logo">
+        <div id="themeToggle" onclick="toggleTheme()">Toggle Theme</div>
+    </header>
+
+    <!-- Content of the homepage goes here -->
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+
+            if (body.style.backgroundColor === 'rgb(245, 229, 246)') {
+                body.style.backgroundColor = '#332534'; // Dark Theme
+                body.style.color = '#fff';
+                themeToggle.textContent = 'Light Theme';
+            } else {
+                body.style.backgroundColor = '#F5E5F6'; // Light Theme
+                body.style.color = '#333';
+                themeToggle.textContent = 'Dark Theme';
+            }
+        }
+    </script>
 </body>
 </html>
