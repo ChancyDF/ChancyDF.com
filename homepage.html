@@ -20,6 +20,7 @@
             text-align: center;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         #logo {
@@ -29,21 +30,23 @@
         }
 
         #suggestButton {
-            background-color: #1E1C1E; /* Slightly darker than the bar */
+            padding: 8px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.3); /* Black outline at 30% opacity */
+            border-radius: 5px; /* Rounded edges */
+            background-color: transparent;
             color: #fff;
-            padding: 8px 15px;
-            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
+            transition: box-shadow 0.3s;
         }
 
         #suggestButton:hover {
-            background-color: #241F24; /* Darker on hover */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Drop shadow on hover */
         }
 
         #themeToggle {
+            float: right;
             cursor: pointer;
+            margin-right: 10px;
             width: 30px;
             height: 30px;
             background-size: cover;
@@ -53,10 +56,10 @@
 </head>
 <body>
     <header>
-        <a href="index.html"> <!-- Added link to the homepage -->
+        <a href="chancydf.com/homepage"> <!-- Updated homepage link -->
             <img id="logo" src="logo.png" alt="ChancyDF Logo">
         </a>
-        <div id="suggestButton" onclick="redirectToSuggest()">Suggest an Idea!</div>
+        <button id="suggestButton" onclick="redirectToSuggestPage()">Suggest an Idea!</button>
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
@@ -80,12 +83,12 @@
             }
         }
 
-        function redirectToSuggest() {
-            window.location.href = 'https://chancydf.com/suggest';
-        }
-
         // Set initial theme toggle image
         document.getElementById('themeToggle').style.backgroundImage = 'url("togglelight.png")';
+
+        function redirectToSuggestPage() {
+            window.location.href = 'http://chancydf.com/suggest';
+        }
     </script>
 </body>
 </html>
