@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #chat-container {
+            width: 300px;
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #0f0f0f;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+        }
+
+        .timestamp {
+            font-size: 9.75px;
+            color: rgba(255, 255, 255, 0.54);
+        }
+
+        .username {
+            font-size: 10px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .message {
+            font-size: 10px;
+            color: #fff;
+        }
+
+        .emotion-buttons {
+            margin-top: 10px;
+        }
+
+        .emotion-buttons button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container"></div>
+
+    <div class="emotion-buttons">
+        <button onclick="toggleEmotion('excited')">Excited</button>
+        <button onclick="toggleEmotion('sad')">Sad</button>
+        <button onclick="toggleEmotion('mad')">Mad</button>
+        <button onclick="toggleEmotion('surprised')">Surprised</button>
+        <button onclick="toggleEmotion('disgusted')">Disgusted</button>
+        <button onclick="toggleEmotion('neutral')">Neutral</button>
+    </div>
+
+    <script>
+        let currentEmotion = 'excited';
+
+        const emotions = {
+            excited: [
+                "Let's go!",
+                'LETS GOOOOO',
+                "LET'S GOO",
+                'OMEGALUL',
+                'roflcopter',
+                'omegalol',
+                'omegalul',
+                'lets go lmao',
+                'LMAOOOO',
+                'lmaoooooooo',
+                'LMFAOOOOOOOOOOOO',
+                'lmfaoooo',
+                'LMFAOOOOO',
+                'NO WAY',
+                'NO WAY BRUH',
+                'HELL YEAH',
+                'HECK YEAH',
+                'OH MY GOD',
+                'oh my god no way'
+            ],
+            sad: [
+                'WHAT',
+                'NOOOOOOOO',
+                'nooooo',
+                'NOOOOOO',
+                'NO',
+                'NOOOOOOOOOOOOOOOOOOOOOOOOOO',
+                'RIGGED',
+                'rigged',
+                'ABSOLUTE BLUNDER',
+                'BLUNDER',
+                'blunder',
+                'CMON WHAT',
+                'THATS NOT EVEN FAIR',
+                'thats not fair at all',
+                'WTF',
+                'wtf'
+            ],
+            mad: [
+                'RIGGED',
+                'rigged',
+                'ABSOLUTELY RIGGED',
+                'WTF',
+                'wtf',
+                'WHAT THE HECK',
+                'WHYYYY',
+                'ACTUALLY SO DUMB',
+                'WHY'
+            ],
+            surprised: [
+                'WHAT',
+                'OH MY GOODNESS',
+                'NO WAY LOL',
+                'LOOOOOLLLLLL',
+                'LOL',
+                'lol',
+                'no way',
+                'omfg theres no way lmfao',
+                'LMFAOOOO',
+                'HAHA',
+                'lmfao'
+            ],
+            disgusted: [
+                'EWWWW',
+                'MY EYES',
+                'my eyes',
+                'ew',
+                'EWW',
+                'MAKE IT GO AWAY',
+                'UGEH',
+                'UGH',
+                'ughhh',
+                'YUCK',
+                'yucky',
+                'POO',
+                'poo'
+            ],
+            neutral: [
+                'hey purpul!',
+                'late to stream, sadge',
+                'I WAS LATE WHAT DID I MISS',
+                'BRB',
+                'LMFAOOO',
+                'lol',
+                'What game is this?',
+                'Game?',
+                '???????????',
+                'PURPUL',
+                'wheres the TF2 funny moments',
+                'fart',
+                'lol'
+            ]
+        };
+
+        function getFakeUsername() {
+            const usernames = [
+                'totallyrealguy82',
+                'lostperson',
+                'realusertrustmebro',
+                'plorbobble2',
+                'sigmafemale43',
+                'spoontles',
+                'Chancy',
+                'Pebble',
+                'NumbNuts32',
+                'BowserFan2934',
+                'PurpulFan8509238'
+            ];
+            const randomIndex = Math.floor(Math.random() * usernames.length);
+            return usernames[randomIndex];
+        }
+
+        function toggleEmotion(emotion) {
+            currentEmotion = emotion;
+        }
+
+        function addFakeChatMessage() {
+            const chatContainer = document.getElementById('chat-container');
+            const random = Math.random();
+            const randomIndex = Math.floor(random * emotions[currentEmotion].length);
+
+            // 1/4 chance of neutral message in another emotion
+            const messageEmotion = random < 0.10 ? 'neutral' : currentEmotion;
+            const fakeMessage = emotions[messageEmotion][randomIndex];
+
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message';
+            messageElement.innerHTML = `
+                <span class="timestamp">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}</span>
+                <span class="username">${getFakeUsername()}</span>
+                <span class="message">${fakeMessage}</span>
+            `;
+
+            chatContainer.appendChild(messageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        setInterval(addFakeChatMessage, Math.random() * (500 - 50) + 50);
+    </script>
+</body>
+</html>
