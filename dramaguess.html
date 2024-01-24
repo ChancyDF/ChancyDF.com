@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Cell Viewer</title>
+</head>
+<body>
+  <h1>Random Cell Viewer</h1>
+
+  <!-- Button to trigger the random cell selection -->
+  <button onclick="showRandomCell()">Show Random Cell</button>
+
+  <!-- Display area for the random cell content -->
+  <div id="randomCellContent"></div>
+
+  <script>
+    function showRandomCell() {
+      // Array of column letters (A, F, K)
+      var columns = ['A', 'F', 'K'];
+
+      // Randomly select a column
+      var selectedColumn = columns[Math.floor(Math.random() * columns.length)];
+
+      // Load the embedded sheet using an iframe
+      var iframe = document.createElement('iframe');
+      iframe.src = 'dramasheet.html';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      // Wait for the iframe to load
+      iframe.onload = function() {
+        // Get the content document of the iframe
+        var contentDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        // Get all non-empty cells in the selected column
+        var cells = contentDocument.querySelectorAll('td[data-col="' + selectedColumn + '"]:not(:empty)');
+
+        if (cells.length > 0) {
+          // Randomly select a cell from the array
+          var randomCell = cells[Math.floor(Math.random() * cells.length)];
+
+          // Display the content of the random cell
+          document.getElementById('randomCellContent').innerText = 'Random Cell Content: ' + randomCell.innerText;
+        } else {
+          document.getElementById('randomCellContent').innerText = 'No non-empty cells found in column ' + selectedColumn;
+        }
+
+        // Remove the iframe from the document
+        document.body.removeChild(iframe);
+      };
+    }
+  </script>
+</body>
+</html>
