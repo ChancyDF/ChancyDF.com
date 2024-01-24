@@ -11,7 +11,6 @@
             padding: 0;
             background-color: #332534; /* Default Dark Theme */
             color: #fff; /* Default text color */
-            transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */
         }
 
         header {
@@ -19,12 +18,28 @@
             color: #fff; /* Text color on the bar */
             padding: 10px;
             text-align: center;
+            display: flex;
+            justify-content: space-between; /* To align items at each end of the bar */
+            align-items: center; /* Vertically align items */
         }
 
         #logo {
             max-width: 10%;
             height: auto;
             cursor: pointer;
+        }
+
+        #suggestButton {
+            background-color: #0D0C0D; /* Slightly darker than the bar */
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px; /* Rounded edges */
+            cursor: pointer;
+            transition: box-shadow 0.3s ease-in-out; /* Smooth transition for the drop shadow */
+        }
+
+        #suggestButton:hover {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Drop shadow on hover */
         }
 
         #themeToggle {
@@ -35,65 +50,21 @@
             height: 30px;
             background-size: cover;
             background-repeat: no-repeat;
-            transition: opacity 0.5s; /* Smooth fade effect */
-        }
-
-        #themeToggle:hover {
-            opacity: 0.7;
-        }
-
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            text-align: center; /* Centered on the page */
-        }
-
-        .typewriter-text {
-            overflow: hidden;
-            display: inline-block;
-            animation: typing 4s steps(25) forwards, blink-caret 0.5s step-end infinite;
-        }
-
-        @keyframes typing {
-            0% {
-                width: 0;
-            }
-            25% {
-                width: 3ch;
-            }
-            50% {
-                width: 7ch;
-            }
-            75% {
-                width: 11ch;
-            }
-            100% {
-                width: 15ch;
-            }
-        }
-
-        @keyframes blink-caret {
-            from,
-            to {
-                border-right-color: transparent;
-            }
-            50% {
-                border-right-color: #fff;
-            }
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="index.html">
+        <a href="chancydf.com/suggest">
+            <div id="suggestButton">Suggest an Idea!</div>
+        </a>
+        <a href="index.html"> <!-- Added link to the homepage -->
             <img id="logo" src="logo.png" alt="ChancyDF Logo">
         </a>
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
-    <div class="typewriter">
-        <h1 class="typewriter-text"></h1>
-    </div>
+    <!-- Content of the homepage goes here -->
 
     <script>
         function toggleTheme() {
@@ -108,19 +79,13 @@
             } else {
                 body.style.backgroundColor = '#F5E5F6'; // Light Theme
                 document.querySelector('header').style.backgroundColor = '#FAB8FF';
-                body.style.color = '#120F12';
+                body.style.color = '#333';
                 themeToggle.style.backgroundImage = 'url("toggledark.png")';
             }
         }
 
         // Set initial theme toggle image
         document.getElementById('themeToggle').style.backgroundImage = 'url("togglelight.png")';
-
-        // Set text content and initiate the typewriter effect after a delay
-        setTimeout(() => {
-            const textElement = document.querySelector('.typewriter-text');
-            textElement.textContent = 'whats up lmao';
-        }, 1000); // Delay in milliseconds
     </script>
 </body>
 </html>
