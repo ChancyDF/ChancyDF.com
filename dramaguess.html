@@ -59,15 +59,16 @@
 
         #buttons-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            flex-wrap: wrap;
             margin-top: 20px;
             transition: background-color 0.5s ease;
         }
 
         button {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             margin: 10px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.2);
@@ -89,7 +90,16 @@
 
         #result {
             margin: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        #whos-title {
+            margin-top: 20px;
             font-size: 18px;
+            font-weight: bold;
+            color: #fff;
         }
     </style>
 </head>
@@ -105,8 +115,9 @@
 
     <div id="title"></div>
 
+    <div id="whos-title">Who's Title is This?</div>
+
     <div id="buttons-container">
-        <div>Who's Title is This?</div>
         <button onclick="makeGuess('penguinz0')"><img src="penguinz0.png" alt="penguinz0" /></button>
         <button onclick="makeGuess('Mogul Mail')"><img src="MogulMail.png" alt="Mogul Mail" /></button>
         <button onclick="makeGuess('PyroLIVE')"><img src="PyroLIVE.png" alt="PyroLIVE" /></button>
@@ -161,7 +172,7 @@
 
             if (guess === correctYoutuber) {
                 resultDiv.textContent = `Yup! That title was from ${correctYoutuber}!`;
-                resultDiv.style.color = 'green';
+                resultDiv.style.color = 'white';
                 body.style.backgroundColor = 'green';
                 header.style.backgroundColor = '#1EAC51';
                 buttonsContainer.style.backgroundColor = 'green';
@@ -174,7 +185,7 @@
                 }, 1500);
             } else {
                 resultDiv.textContent = `Nope! That title was from ${correctYoutuber}!`;
-                resultDiv.style.color = 'red';
+                resultDiv.style.color = 'white';
                 body.style.backgroundColor = 'red';
                 header.style.backgroundColor = '#AA1122';
                 buttonsContainer.style.backgroundColor = 'red';
