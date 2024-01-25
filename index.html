@@ -35,6 +35,15 @@
             background-size: cover;
             background-repeat: no-repeat;
         }
+
+        #dramaGuessButton {
+            cursor: pointer;
+            background: url("dramaguessbutton.png") no-repeat;
+            width: /* set the width */;
+            height: /* set the height */;
+            display: block; /* or inline-block, depending on your layout */
+            margin: /* set margins */;
+        }
     </style>
 </head>
 <body>
@@ -46,6 +55,9 @@
     </header>
 
     <!-- Content of the homepage goes here -->
+
+    <!-- Add the Drama Guess button -->
+    <a id="dramaGuessButton" onclick="redirectToDramaGuess()"></a>
 
     <script>
         function toggleTheme() {
@@ -63,6 +75,11 @@
                 body.style.color = '#333';
                 themeToggle.style.backgroundImage = 'url("toggledark.png")';
             }
+        }
+
+        // Redirect to "chancydf.com/dramaguess" when the button is clicked
+        function redirectToDramaGuess() {
+            window.location.href = 'http://chancydf.com/dramaguess';
         }
 
         // Set initial theme toggle image
