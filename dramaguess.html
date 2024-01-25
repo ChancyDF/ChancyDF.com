@@ -3,17 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Title Viewer</title>
+    <title>Guess the YouTuber</title>
 </head>
 <body>
 
-<h1>Random Title Viewer</h1>
+<h1>Guess the YouTuber</h1>
 
 <button onclick="fetchRandomTitle()">Show Random Title</button>
+
+<div id="title"></div>
+<div id="buttons">
+    <button onclick="makeGuess('penguinz0')">penguinz0</button>
+    <button onclick="makeGuess('Mogul Mail')">Mogul Mail</button>
+    <button onclick="makeGuess('PyroLIVE')">PyroLIVE</button>
+</div>
 
 <div id="result"></div>
 
 <script>
+    let correctYoutuber;
+
     function fetchRandomTitle() {
         // Fetch the titles.txt content
         fetch('titles.txt')
@@ -28,14 +37,28 @@
                 // Get a random line
                 if (nonEmptyLines.length > 0) {
                     let randomLine = nonEmptyLines[Math.floor(Math.random() * nonEmptyLines.length)];
-                    document.getElementById('result').textContent = randomLine.trim();
+                    // Extract the title without the suffix
+                    let titleWithoutSuffix = randomLine.split(' (')[0];
+                    document.getElementById('title').textContent = titleWithoutSuffix;
+
+                    // Save the correct YouTuber for later comparison
+                    let suffix = randomLine.match(/\(([^)]+)\)/);
+                    correctYoutuber = suffix ? suffix[1] : '';
                 } else {
-                    document.getElementById('result').textContent = 'No non-empty lines found.';
+                    document.getElementById('title').textContent = 'No non-empty lines found.';
                 }
             })
             .catch(error => {
                 console.error('Error fetching titles.txt:', error);
             });
+    }
+
+    function makeGuess(guess) {
+        if (guess === correctYoutuber) {
+            document.getElementById('result').textContent = 'Correct! You guessed the right YouTuber.';
+        } else {
+            document.getElementById('result').textContent = 'Incorrect. Try again!';
+        }
     }
 </script>
 
