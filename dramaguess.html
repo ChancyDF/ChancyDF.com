@@ -1,49 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Cell Viewer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Drama Cell Viewer</title>
 </head>
 <body>
-  <h1>Random Cell Viewer</h1>
 
-  <!-- Button to trigger the random cell selection -->
-  <button onclick="showRandomCell()">Show Random Cell</button>
+<h1>Random Drama Cell Viewer</h1>
 
-  <!-- Display area for the random cell content -->
-  <div id="randomCellContent"></div>
+<button onclick="fetchRandomCell()">Show Random Cell</button>
 
-  <script>
-    function showRandomCell() {
-      // Load the embedded sheet using an iframe
-      var iframe = document.createElement('iframe');
-      iframe.src = 'dramasheet.html';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
+<div id="result"></div>
 
-      // Wait for the iframe to load
-      iframe.onload = function() {
-        // Get the content document of the iframe
-        var contentDocument = iframe.contentDocument || iframe.contentWindow.document;
+<script>
+    function fetchRandomCell() {
+        // Fetch the dramasheet.html content
+        fetch('dramasheet.html')
+            .then(response => response.text())
+            .then(data => {
+                // Parse the HTML content
+                let parser = new DOMParser();
+                let doc = parser.parseFromString(data, 'text/html');
 
-        // Get all non-empty cells
-        var cells = contentDocument.querySelectorAll('td:not(:empty)');
+                // Get all non-empty cells
+                let nonEmptyCells = Array.from(doc.querySelectorAll('td'))
+                    .filter(cell => cell.textContent.trim() !== '');
 
-        if (cells.length > 0) {
-          // Randomly select a cell from the array
-          var randomCell = cells[Math.floor(Math.random() * cells.length)];
-
-          // Display the content of the random cell
-          document.getElementById('randomCellContent').innerText = 'Random Cell Content: ' + randomCell.innerText;
-        } else {
-          document.getElementById('randomCellContent').innerText = 'No non-empty cells found.';
-        }
-
-        // Remove the iframe from the document
-        document.body.removeChild(iframe);
-      };
+                // Display a random non-empty cell content
+                if (nonEmptyCells.length > 0) {
+                    let randomCell = nonEmptyCells[Math.floor(Math.random() * nonEmptyCells.length)];
+                    document.getElementById('result').textContent = randomCell.textContent.trim();
+                } else {
+                    document.getElementById('result').textContent = 'No non-empty cells found.';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching dramasheet.html:', error);
+            });
     }
-  </script>
+</script>
+
 </body>
 </html>
