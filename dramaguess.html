@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the YouTuber</title>
+    <title>Drama YouTuber Guessing Game</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -11,13 +11,13 @@
             padding: 0;
             background-color: #332534; /* Dark Theme */
             color: #fff;
+            text-align: center;
         }
 
         header {
             background-color: #120F12;
             color: #fff;
             padding: 10px;
-            text-align: center;
         }
 
         #logo {
@@ -38,12 +38,18 @@
 
         h1 {
             margin-top: 20px;
+            font-size: 24px;
         }
 
         button {
             margin: 10px;
             padding: 10px;
             font-size: 16px;
+        }
+
+        #title {
+            font-size: 20px;
+            margin: 20px;
         }
     </style>
 </head>
@@ -55,21 +61,23 @@
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
-    <h1>Guess the YouTuber</h1>
+    <h1><img src="dramaguess.png" alt="Drama Guess" /></h1>
 
-    <button onclick="fetchRandomTitle()">Show Random Title</button>
+    <button onclick="makeGuess('penguinz0')"><img src="penguinz0.png" alt="penguinz0" /></button>
+    <button onclick="makeGuess('Mogul Mail')"><img src="MogulMail.png" alt="Mogul Mail" /></button>
+    <button onclick="makeGuess('PyroLIVE')"><img src="PyroLIVE.png" alt="PyroLIVE" /></button>
 
     <div id="title"></div>
-    <div id="buttons">
-        <button onclick="makeGuess('penguinz0')">penguinz0</button>
-        <button onclick="makeGuess('Mogul Mail')">Mogul Mail</button>
-        <button onclick="makeGuess('PyroLIVE')">PyroLIVE</button>
-    </div>
-
     <div id="result"></div>
 
     <script>
         let correctYoutuber;
+
+        // Set initial theme toggle image
+        document.getElementById('themeToggle').style.backgroundImage = 'url("toggledark.png")';
+
+        // Fetch a random title when the page is loaded
+        fetchRandomTitle();
 
         function fetchRandomTitle() {
             // Fetch the titles.txt content
@@ -87,7 +95,7 @@
                         let randomLine = nonEmptyLines[Math.floor(Math.random() * nonEmptyLines.length)];
                         // Extract the title without the suffix
                         let titleWithoutSuffix = randomLine.split(' (')[0];
-                        document.getElementById('title').textContent = titleWithoutSuffix;
+                        document.getElementById('title').textContent = `"${titleWithoutSuffix}"`;
 
                         // Save the correct YouTuber for later comparison
                         let suffix = randomLine.match(/\(([^)]+)\)/);
@@ -125,9 +133,6 @@
                 themeToggle.style.backgroundImage = 'url("togglelight.png")';
             }
         }
-
-        // Set initial theme toggle image
-        document.getElementById('themeToggle').style.backgroundImage = 'url("toggledark.png")';
     </script>
 </body>
 </html>
