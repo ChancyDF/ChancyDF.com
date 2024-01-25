@@ -6,18 +6,20 @@
     <title>Drama YouTuber Guessing Game</title>
     <style>
         body {
-            font-family: 'Helvetica', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #332534; /* Dark Theme */
             color: #fff;
             text-align: center;
+            transition: background-color 0.5s ease;
         }
 
         header {
             background-color: #120F12;
             color: #fff;
             padding: 10px;
+            transition: background-color 0.5s ease;
         }
 
         #logo {
@@ -55,21 +57,22 @@
             color: #FAB8FF;
         }
 
-        #buttons {
+        #buttons-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             margin-top: 20px;
+            transition: background-color 0.5s ease;
         }
 
         button {
-            width: 150px;
-            height: 150px;
+            width: 300px;
+            height: 300px;
             margin: 10px;
-            padding: 10px;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.2);
             border: none;
-            border-radius: 10px;
+            border-radius: 15px;
             transition: background 0.3s ease;
         }
 
@@ -81,7 +84,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
         #result {
@@ -102,7 +105,8 @@
 
     <div id="title"></div>
 
-    <div id="buttons">
+    <div id="buttons-container">
+        <div>Who's Title is This?</div>
         <button onclick="makeGuess('penguinz0')"><img src="penguinz0.png" alt="penguinz0" /></button>
         <button onclick="makeGuess('Mogul Mail')"><img src="MogulMail.png" alt="Mogul Mail" /></button>
         <button onclick="makeGuess('PyroLIVE')"><img src="PyroLIVE.png" alt="PyroLIVE" /></button>
@@ -150,11 +154,41 @@
         }
 
         function makeGuess(guess) {
+            const body = document.body;
+            const header = document.querySelector('header');
+            const buttonsContainer = document.getElementById('buttons-container');
+            const resultDiv = document.getElementById('result');
+
             if (guess === correctYoutuber) {
-                document.getElementById('result').textContent = 'Correct! You guessed the right YouTuber.';
+                resultDiv.textContent = `Yup! That title was from ${correctYoutuber}!`;
+                resultDiv.style.color = 'green';
+                body.style.backgroundColor = 'green';
+                header.style.backgroundColor = '#1EAC51';
+                buttonsContainer.style.backgroundColor = 'green';
+
+                setTimeout(() => {
+                    resultDiv.textContent = '';
+                    body.style.backgroundColor = '#332534';
+                    header.style.backgroundColor = '#120F12';
+                    buttonsContainer.style.backgroundColor = 'transparent';
+                }, 1500);
             } else {
-                document.getElementById('result').textContent = 'Incorrect. Try again!';
+                resultDiv.textContent = `Nope! That title was from ${correctYoutuber}!`;
+                resultDiv.style.color = 'red';
+                body.style.backgroundColor = 'red';
+                header.style.backgroundColor = '#AA1122';
+                buttonsContainer.style.backgroundColor = 'red';
+
+                setTimeout(() => {
+                    resultDiv.textContent = '';
+                    body.style.backgroundColor = '#332534';
+                    header.style.backgroundColor = '#120F12';
+                    buttonsContainer.style.backgroundColor = 'transparent';
+                }, 1500);
             }
+
+            // Fetch a new random title after a guess is made
+            fetchRandomTitle();
         }
 
         function toggleTheme() {
