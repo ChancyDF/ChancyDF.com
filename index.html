@@ -38,31 +38,27 @@
 
         #dramaGuessButton {
             display: block;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: #FAB8FF; /* Button background color */
-            color: #332534; /* Button text color */
-            text-decoration: none;
-            text-align: center;
-            border-radius: 5px;
+            margin: 20px auto; /* Center the button */
+            background: transparent;
+            border: none;
             cursor: pointer;
         }
     </style>
 </head>
 <body>
     <header>
-        <a href="homepage.html"> <!-- Updated link to the homepage -->
+        <a href="homepage.html">
             <img id="logo" src="logo.png" alt="ChancyDF Logo">
         </a>
         <div id="themeToggle" onclick="toggleTheme()"></div>
     </header>
 
-    <!-- Content of the homepage goes here -->
-
-    <!-- Button to redirect to "chancydf.com/dramaguess" -->
-    <a id="dramaGuessButton" href="https://chancydf.com/dramaguess">
+    <!-- Drama Guess Button -->
+    <button id="dramaGuessButton" onclick="redirectToDramaGuess()">
         <img src="dramaguessbutton.png" alt="Drama Guess Button">
-    </a>
+    </button>
+
+    <!-- Content of the homepage goes here -->
 
     <script>
         function toggleTheme() {
@@ -84,6 +80,11 @@
 
         // Set initial theme toggle image
         document.getElementById('themeToggle').style.backgroundImage = 'url("togglelight.png")';
+
+        // Redirect to drama guess page
+        function redirectToDramaGuess() {
+            window.location.href = 'https://www.chancydf.com/dramaguess';
+        }
     </script>
 </body>
 </html>
