@@ -4,63 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess the YouTuber</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #332534;
+            color: #fff;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        header {
+            background-color: #120F12;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+
+        #logo {
+            max-width: 10%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        #themeToggle {
+            float: right;
+            cursor: pointer;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #title {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div id="themeToggle" onclick="toggleTheme()"></div>
+    </header>
 
-<h1>Guess the YouTuber</h1>
+    <div id="title"></div>
+    <div id="buttons">
+        <button onclick="makeGuess('penguinz0')">penguinz0</button>
+        <button onclick="makeGuess('Mogul Mail')">Mogul Mail</button>
+        <button onclick="makeGuess('PyroLIVE')">PyroLIVE</button>
+    </div>
 
-<button onclick="fetchRandomTitle()">Show Random Title</button>
+    <div id="result"></div>
 
-<div id="title"></div>
-<div id="buttons">
-    <button onclick="makeGuess('penguinz0')">penguinz0</button>
-    <button onclick="makeGuess('Mogul Mail')">Mogul Mail</button>
-    <button onclick="makeGuess('PyroLIVE')">PyroLIVE</button>
-</div>
+    <script>
+        let correctYoutuber;
 
-<div id="result"></div>
+        function fetchRandomTitle() {
+            // Fetch the titles.txt content
+            fetch('titles.txt')
+                .then(response => response.text())
+                .then(data => {
+                    // Split the content into lines
+                    let lines = data.split('\n');
 
-<script>
-    let correctYoutuber;
+                    // Remove any empty lines
+                    let nonEmptyLines = lines.filter(line => line.trim() !== '');
 
-    function fetchRandomTitle() {
-        // Fetch the titles.txt content
-        fetch('titles.txt')
-            .then(response => response.text())
-            .then(data => {
-                // Split the content into lines
-                let lines = data.split('\n');
+                    // Get a random line
+                    if (nonEmptyLines.length > 0) {
+                        let randomLine = nonEmptyLines[Math.floor(Math.random() * nonEmptyLines.length)];
+                        // Extract the title without the suffix
+                        let titleWithoutSuffix = randomLine.split(' (')[0];
+                        document.getElementById('title').textContent = titleWithoutSuffix;
 
-                // Remove any empty lines
-                let nonEmptyLines = lines.filter(line => line.trim() !== '');
-
-                // Get a random line
-                if (nonEmptyLines.length > 0) {
-                    let randomLine = nonEmptyLines[Math.floor(Math.random() * nonEmptyLines.length)];
-                    // Extract the title without the suffix
-                    let titleWithoutSuffix = randomLine.split(' (')[0];
-                    document.getElementById('title').textContent = titleWithoutSuffix;
-
-                    // Save the correct YouTuber for later comparison
-                    let suffix = randomLine.match(/\(([^)]+)\)/);
-                    correctYoutuber = suffix ? suffix[1] : '';
-                } else {
-                    document.getElementById('title').textContent = 'No non-empty lines found.';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching titles.txt:', error);
-            });
-    }
-
-    function makeGuess(guess) {
-        if (guess === correctYoutuber) {
-            document.getElementById('result').textContent = 'Correct! You guessed the right YouTuber.';
-        } else {
-            document.getElementById('result').textContent = 'Incorrect. Try again!';
+                        // Save the correct YouTuber for later comparison
+                        let suffix = randomLine.match(/\(([^)]+)\)/);
+                        correctYoutuber = suffix ? suffix[1] : '';
+                    } else {
+                        document.getElementById('title').textContent = 'No non-empty lines found.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching titles.txt:', error);
+                });
         }
-    }
-</script>
 
+        function makeGuess(guess) {
+            if (guess === correctYoutuber) {
+                document.getElementById('result').textContent = 'Correct! You guessed the right YouTuber.';
+            } else {
+                document.getElementById('result').textContent = 'Incorrect. Try again!';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+
+            if (body.style.backgroundColor === 'rgb(245, 229, 246)') {
+                body.style.backgroundColor = '#332534'; // Dark Theme
+                document.querySelector('header').style.backgroundColor = '#120F12';
+                body.style.color = '#fff';
+                themeToggle.style.backgroundImage = 'url("togglelight.png")';
+            } else {
+                body.style.backgroundColor = '#F5E5F6'; // Light Theme
+                document.querySelector('header').style.backgroundColor = '#FAB8FF';
+                body.style.color = '#333';
+                themeToggle.style.backgroundImage = 'url("toggledark.png")';
+            }
+        }
+
+        // Set initial theme toggle image
+        document.getElementById('themeToggle').style.backgroundImage = 'url("togglelight.png")';
+    </script>
 </body>
 </html>
