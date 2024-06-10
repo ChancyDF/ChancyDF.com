@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image with Overlay and Slider</title>
+    <style>
+        #container {
+            position: relative;
+            width: 934px;
+            height: 671px;
+        }
+        #image, #mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: green;
+            mix-blend-mode: multiply;
+            mask-image: url('https://media.discordapp.net/attachments/1060356189755560006/1249537442353254431/Skitzy_cloud.png?ex=666852ad&is=6667012d&hm=5fc271abe590e9861de36c930e4dd568e11bec7f63453f3be69839425458e9ee&=&format=webp&quality=lossless&width=934&height=671');
+            -webkit-mask-image: url('https://media.discordapp.net/attachments/1060356189755560006/1249537442353254431/Skitzy_cloud.png?ex=666852ad&is=6667012d&hm=5fc271abe590e9861de36c930e4dd568e11bec7f63453f3be69839425458e9ee&=&format=webp&quality=lossless&width=934&height=671');
+            mask-size: cover;
+            -webkit-mask-size: cover;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <img id="image" src="https://media.discordapp.net/attachments/1060356189755560006/1249537442353254431/Skitzy_cloud.png?ex=666852ad&is=6667012d&hm=5fc271abe590e9861de36c930e4dd568e11bec7f63453f3be69839425458e9ee&=&format=webp&quality=lossless&width=934&height=671" alt="Image">
+    <div id="overlay"></div>
+</div>
+
+<script>
+    // Function to fetch width from Streamlabs donation goal widget
+    function fetchDonationGoalWidth() {
+        fetch("https://streamlabs.com/widgets/donation-goal?token=48D441A986292AD28612FB62BDF06D8F831FE537765EAB38B71F834A2D30F8032D6FF47C6E983717E483E4E74C3610F85B01633E88B46CA8597E08E8D30C45C338DC1E6D855D14DE3CECDF57333DD9E8A5D805522381F24266EEE4AEAF8D6A75F0A7645475A774A4BB1B02A1AA492C8368855CB0DAD3BD4D936994F77E")
+            .then(response => response.text())
+            .then(data => {
+                // Extract the width from the data
+                const widthRegex = /width: (\d+(\.\d+)?)%/;
+                const match = data.match(widthRegex);
+                if (match && match[1]) {
+                    const width = parseFloat(match[1]);
+                    // Set the width as the crop value for the overlay
+                    document.getElementById("overlay").style.width = width + "%";
+                } else {
+                    console.error("Width not found in response:", data);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching donation goal width:', error);
+            });
+    }
+
+    // Initial load of donation goal width
+    fetchDonationGoalWidth();
+
+    // Refresh donation goal width every 5 seconds
+    setInterval(fetchDonationGoalWidth, 5000);
+</script>
+
+</body>
+</html>
