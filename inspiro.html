@@ -27,6 +27,9 @@
         
         // Add click event listener to refresh image
         document.getElementById("inspirobot-image").addEventListener("click", fetchAndSetImage);
+
+        // Refresh image every 30 seconds
+        setInterval(fetchAndSetImage, 30000);
     </script>
 </body>
 </html>
